@@ -9,10 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
@@ -61,31 +58,44 @@ fun Screen() {
                 derivedStateOf { gameState?.stashedMoney }
             }
 
+
+
+
+
             Column(
                 modifier = Modifier.fillMaxWidth()
                     .verticalScroll(rememberScrollState())
             ) {
+
+                Column() {  Text("Bob der Boxer")
+                    Text("sagt hallo")
+                    Text("Aber warum????")
+                }
                 Text(
-                    "Idle Game",
+                    "Box-Until-Death",
                     style = MaterialTheme.typography.h1,
                 )
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
-                    onClick = { viewModel.reset() }
+                    onClick = { viewModel.reset() },
+                            colors = ButtonDefaults.buttonColors(
+                                contentColor = Color.White,
+                                backgroundColor = Color.Red),
                 ) {
                     Text("Reset Game")
                 }
 
                 gameState?.let { state ->
                     Text(
-                        "Bank: ${currentMoney?.toHumanReadableString()} Gelds",
+                        "Besigte Böse: ${currentMoney?.toHumanReadableString()} Besigte Gegner",
                         style = MaterialTheme.typography.h4,
                     )
                     Button(
-                        onClick = { viewModel.clickMoney(state) }
+                        onClick = { viewModel.clickMoney(state) },
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Yellow)
                     ) {
-                        Text("Click money")
+                        Text("Click for Dollars", color = Color.Black)
                     }
 
                     state.availableJobs.forEach { availableJob ->
@@ -118,10 +128,10 @@ private fun Generator(
             .padding(8.dp)
     ) {
         Column {
-            Text("Generator ${gameJob.id}")
+            Text("Automatic Box-Handschuh ${gameJob.id}")
             Text("Level: ${gameJob.level.level}")
-            Text("Costs: ${gameJob.level.cost.toHumanReadableString()} Gelds")
-            Text("Earns: ${gameJob.level.earn.toHumanReadableString()} Gelds")
+            Text("Costs: ${gameJob.level.cost.toHumanReadableString()} Dollar")
+            Text("Earns: ${gameJob.level.earn.toHumanReadableString()} Dollar")
             Text("Duration: ${gameJob.level.duration.inWholeSeconds} Seconds")
         }
         if (!alreadyBought) {
