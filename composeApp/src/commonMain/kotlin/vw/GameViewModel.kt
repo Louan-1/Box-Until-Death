@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 import kotlinx.datetime.Clock
+import util.Gelds
 import util.gelds
 import kotlin.time.Duration.Companion.seconds
 
@@ -79,8 +80,8 @@ internal class GameViewModel(
         }
     }
 
-    fun clickMoney(gameState: GameState) {
-        gameRepository.saveGame(gameState.copy(stashedMoney = gameState.stashedMoney + 1.gelds))
+    fun clickMoney(gameState: GameState, accumulator: Gelds) {
+        gameRepository.saveGame(gameState.copy(stashedMoney = gameState.stashedMoney + accumulator))
     }
 
     fun reset() {
